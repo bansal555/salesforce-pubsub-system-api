@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<error-handler name="common_global_error_handler" doc:id="bdd8a41b-f065-4d2f-97d2-a113991cf365" >
+		<on-error-propagate enableNotifications="true" logException="true" doc:name="On Error Propagate" doc:id="4b7c2acc-cdb6-4052-bcdd-6585062cd6c4" type="ANY">
+			<set-variable value="400" doc:name="httpStatus" doc:id="2907b4ef-d69b-4d15-8d4c-2e54609f6046" variableName="httpStatus"/>
+			<flow-ref doc:name="" doc:id="1fa3796c-e4b0-48dd-8313-d7242ed895cc" name="common_global_error_handlerFlow"/>
+		</on-error-propagate>
+	</error-handler>
+	<flow name="common_global_error_handlerFlow" doc:id="770aa745-6a05-48ac-945a-ae4d52e8d3b6" >
+		<ee:transform doc:name="show error response" doc:id="2cca21ed-42fb-4d0d-99b8-cd8a13b1edf3" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+    "statusCode": vars.httpStatus,
+    "statusType": error.errorType,
+    "statusMessage": "Not connected with salesforce account",
+    "statusDetails": error.description,
+    "correlationId": correlationId
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+</mule>

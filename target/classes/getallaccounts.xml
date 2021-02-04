@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:salesforce="http://www.mulesoft.org/schema/mule/salesforce"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/salesforce http://www.mulesoft.org/schema/mule/salesforce/current/mule-salesforce.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<salesforce:sfdc-config name="Salesforce_Config" doc:name="Salesforce Config" doc:id="55bd9d39-4246-449b-b18c-b4aa311a9af5" >
+		<salesforce:basic-connection username="aman1412@tcs.com" password="Aman@123" securityToken="5yBpyS86noqTk3lSVGyN3c2y" url="https://login.salesforce.com/services/Soap/u/49.0" />
+	</salesforce:sfdc-config>
+	<configuration doc:name="Configuration" doc:id="658b458e-af6e-4ff1-8863-03474ac630f2" defaultErrorHandler-ref="common_global_error_handler"/>
+	<flow name="getallaccountsFlow" doc:id="2f509f26-bc87-4b28-85d6-f85be66612e6" >
+		<logger level="INFO" doc:name="Start get flow" doc:id="ad7b5021-9084-43a8-9fd8-b44cd01cb4e8" message="Start get flow"/>
+		<salesforce:query doc:name="get all accounts" doc:id="e0444bd8-eebc-4857-bc32-69c4bf894b18" config-ref="Salesforce_Config">
+			<salesforce:salesforce-query ><![CDATA[SELECT Id,Name,Gender__c,AccountNumber, OwnerId, Phone, Website , LastModifiedById FROM Account]]></salesforce:salesforce-query>
+		</salesforce:query>
+		<ee:transform doc:name="json payload" doc:id="d359f1df-343c-41a3-b540-a1db62d07080" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="End get flow" doc:id="a913020f-539e-45c4-8d5d-df00ff3ab102" message="End get flow"/>
+		<error-handler ref="common_global_error_handler" />
+	</flow>
+</mule>

@@ -1,0 +1,29 @@
+#%RAML 1.0
+title: roche-salesforce-demo
+
+
+/account:
+  get:
+    description: retrive the all accounts data account object form salesforce
+    responses:
+      200:
+        body:
+          application/json:
+            example:
+              {
+                "Name" : "abc",
+                "id" : "2323aad"
+              }
+
+      400:
+        body:
+          application/json:
+            example:
+              {"message": " bad request"}
+
+
+            
+            
+
+
+    

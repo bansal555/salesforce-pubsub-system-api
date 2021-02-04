@@ -1,0 +1,29 @@
+{
+  "configs": [
+    "getallaccounts.xml",
+    "common global error handler.xml",
+    "api-route.xml"
+  ],
+  "secureProperties": [],
+  "redeploymentEnabled": true,
+  "name": "com.mycompany:roche-salesforce-exp:1.0.0-SNAPSHOT",
+  "minMuleVersion": "4.3.0",
+  "requiredProduct": "MULE_EE",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "mule",
+    "attributes": {
+      "exportedPackages": [],
+      "exportedResources": [
+        "api/roche-salesforce-pubsub-api.raml",
+        "api-route.xml",
+        "common global error handler.xml",
+        "getallaccounts.xml",
+        "log4j2.xml"
+      ]
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "mule",
+    "attributes": {}
+  }
+}
