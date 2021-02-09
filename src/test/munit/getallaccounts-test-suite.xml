@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="getallaccounts-test-suite.xml" />
+	<munit:test name="getallaccounts-test-suite-getallaccountsFlowTest" doc:id="888ea5d6-7526-42e5-88f3-0d28bb0d6ef4" description="Test">
+		<munit:execution >
+			<munit:set-event doc:name="Mule Event" doc:id="20241a05-7cd3-4b59-a55f-52c1620063cb" />
+			<flow-ref doc:name="Flow-ref to getallaccountsFlow" doc:id="78dfef07-b8be-4efc-8b41-b8c036bdcb3c" name="getallaccountsFlow"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="payload" doc:id="d7384be0-a96b-464f-b66f-c4200497471c" is="#[MunitTools::notNullValue()]" message="Payload is not as expected. It is null." expression="#[payload]"/>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>
